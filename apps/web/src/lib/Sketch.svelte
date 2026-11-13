@@ -10,7 +10,7 @@
 
   const STEP_MS = 4600;
 
-  // With reduced motion all four frames are shown at once (CSS does this before any script runs).
+  // With reduced motion, or without scripting, CSS shows all four frames at once before any script runs.
   let mode = $state<'all' | 'player'>('player');
   let ready = $state(false);
   let step = $state(0);
@@ -340,7 +340,7 @@
     background: var(--mark-ink);
     color: var(--mark);
   }
-  @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
   .stage {
     grid-template-columns: 1fr;
   }
