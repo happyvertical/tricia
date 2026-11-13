@@ -27,3 +27,7 @@ pnpm lint        # Biome
 ```
 
 See [`apps/web/README.md`](apps/web/README.md) for details and hosting options.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).

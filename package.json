@@ -1,6 +1,7 @@
 {
   "name": "tricia",
   "private": true,
+  "license": "MIT",
   "description": "Tricia: homepage now, desktop app releases and update feed later.",
   "packageManager": "pnpm@11.25.0",
   "engines": {
