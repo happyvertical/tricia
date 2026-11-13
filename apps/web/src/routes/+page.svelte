@@ -95,7 +95,7 @@
   <section class="wrap prose" aria-labelledby="yours-h">
     <h2 id="yours-h">Your data, your AI account</h2>
     <ul>
-      <li>Your data stays in a local database on your own machine.</li>
+      <li>Your data is stored in a local database on your own machine.</li>
       <li>
         The assistant runs on your own AI account: your Claude Code or ChatGPT plan, or an API
         key from Anthropic, OpenAI or Gemini. Tricia does not supply one.
@@ -160,8 +160,7 @@
 <footer class="foot">
   <div class="wrap">
     <p>
-      Tricia by HappyVertical. This page has no trackers, analytics or sign-up form. The wording is
-      a draft.
+      Tricia by HappyVertical. This page has no trackers, analytics or sign-up form.
     </p>
   </div>
 </footer>

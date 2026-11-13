@@ -89,7 +89,7 @@
 
   <div class="stage">
     {#each frames as f, i (f.id)}
-      <figure class="frame" data-active={mode === 'all' || step === i} aria-hidden={mode === 'player' && step !== i}>
+      <figure class="frame" data-active={mode === 'all' || step === i} aria-hidden={ready && mode === 'player' && step !== i ? true : undefined}>
         <figcaption>
           <span class="n">{i + 1}</span>
           {f.title}
@@ -152,7 +152,7 @@
               <p class="map">Yes becomes paid. No becomes unpaid.</p>
               <div class="actions" aria-hidden="true"><span class="btn go">Approve</span><span class="btn">Deny</span></div>
             </div>
-            <p class="hint">Once approved, the change goes in the history, and it can be undone.</p>
+            <p class="hint">Once approved, the change goes in the history and can usually be undone.</p>
           {/if}
         </div>
       </figure>
