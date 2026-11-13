@@ -6,10 +6,10 @@
 </script>
 
 <svelte:head>
-  <title>Tricia: an app that builds itself from your spreadsheets</title>
+  <title>Tricia: an app that builds itself from your spreadsheets (in development)</title>
   <meta
     name="description"
-    content="Tricia is an open source desktop app for one person. She is being built to turn the spreadsheets a business runs on into an app, one conversation at a time. Not released yet."
+    content="Tricia is an open source desktop app for one person. She is being built to turn the spreadsheets a business runs on into an app, one conversation at a time. In development: not released yet, nothing to download."
   />
 </svelte:head>
 
@@ -83,25 +83,25 @@
       </li>
       <li>
         <h3>Undo</h3>
-        <p>Every change is kept in a history, and changes can be undone.</p>
+        <p>Changes are versioned and can usually be undone.</p>
       </li>
     </ol>
     <p>
-      So Tricia builds herself, but you steer. Nothing happens to your app that you did not ask for
-      or approve.
+      So Tricia builds herself, but you steer. Risky changes wait for your approval.
     </p>
   </section>
 
   <section class="wrap prose" aria-labelledby="yours-h">
-    <h2 id="yours-h">Your data, your AI key</h2>
+    <h2 id="yours-h">Your data, your AI account</h2>
     <ul>
       <li>Your data stays in a local database on your own machine.</li>
       <li>
-        The assistant uses your own AI key, from Anthropic, OpenAI or Gemini. Tricia does not
-        supply one.
+        The assistant runs on your own AI account: your Claude Code or ChatGPT plan, or an API
+        key from Anthropic, OpenAI or Gemini. Tricia does not supply one.
       </li>
       <li>
-        The assistant sends what you ask it to the AI provider you chose.
+        What the assistant needs to answer you, including your data, goes to the AI provider you
+        chose.
       </li>
     </ul>
   </section>
@@ -115,7 +115,7 @@
           <ul>
             <li>Building and changing lists and fields by conversation</li>
             <li>Approval for risky changes</li>
-            <li>A history of changes, and undo</li>
+            <li>Versioned changes, and undo</li>
           </ul>
         </div>
         <div>

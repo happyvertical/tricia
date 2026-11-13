@@ -10,11 +10,12 @@
 
   const STEP_MS = 4600;
 
-  // Without script, or with reduced motion, all four frames are shown at once.
-  let mode = $state<'all' | 'player'>('all');
+  // With reduced motion all four frames are shown at once (CSS does this before any script runs).
+  let mode = $state<'all' | 'player'>('player');
+  let ready = $state(false);
   let step = $state(0);
   let paused = $state(false);
-  let hovering = $state(false);
+  let focused = $state(false);
   let timer: ReturnType<typeof setInterval> | undefined;
 
   function stop() {
@@ -25,7 +26,7 @@
   function start() {
     stop();
     timer = setInterval(() => {
-      if (!paused && !hovering) step = (step + 1) % frames.length;
+      if (!paused && !focused) step = (step + 1) % frames.length;
     }, STEP_MS);
   }
 
@@ -41,6 +42,7 @@
       }
     };
     apply();
+    ready = true;
     query.addEventListener('change', apply);
     return () => {
       query.removeEventListener('change', apply);
@@ -58,16 +60,18 @@
   class="sketch"
   data-mode={mode}
   aria-label="Illustration: a spreadsheet becomes an app"
-  onmouseenter={() => (hovering = true)}
-  onmouseleave={() => (hovering = false)}
+  onfocusin={() => (focused = true)}
+  onfocusout={(e) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) focused = false;
+  }}
 >
   <p class="note">
     An illustration of the idea, made of plain HTML. It is not a recording of the product, and the
     spreadsheet step is not built yet.
   </p>
 
-  {#if mode === 'player'}
-    <div class="controls">
+  <div class="controls">
+    {#if ready && mode === 'player'}
       <ol class="tabs">
         {#each frames as f, i (f.id)}
           <li>
@@ -80,18 +84,19 @@
       <button type="button" class="pause" onclick={() => (paused = !paused)}>
         {paused ? 'Play' : 'Pause'}
       </button>
-    </div>
-  {/if}
+    {/if}
+  </div>
 
   <div class="stage">
     {#each frames as f, i (f.id)}
       <figure class="frame" data-active={mode === 'all' || step === i} aria-hidden={mode === 'player' && step !== i}>
         <figcaption>
-          {#if mode === 'all'}<span class="n">{i + 1}</span>{/if}
+          <span class="n">{i + 1}</span>
           {f.title}
         </figcaption>
 
-        <div class="window">
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex (a sideways-scrolling region must be reachable by keyboard) -->
+          <div class="window" role="region" aria-label={f.title} tabindex="0">
           {#if f.id === 'sheet'}
             <table class="grid messy">
               <caption class="sr">A spreadsheet with inconsistent values</caption>
@@ -122,7 +127,7 @@
                 <tr><td>Cole Farm</td><td>7</td><td>1 Apr</td><td>No</td></tr>
               </tbody>
             </table>
-            <p class="hint">Each column now has a type. The owner checks it before anything is kept.</p>
+            <p class="hint">Each column now has a type. In the plan, the owner checks it before anything is kept.</p>
           {:else if f.id === 'ask'}
             <div class="chat">
               <p class="bubble you"><span class="who">You</span>Make Paid a choice: unpaid, part paid, paid.</p>
@@ -175,6 +180,7 @@
     white-space: nowrap;
   }
   .controls {
+    min-height: 2.5rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -194,7 +200,7 @@
     font-size: 0.9rem;
     color: var(--ink);
     background: transparent;
-    border: 1px solid var(--rule);
+    border: 1px solid var(--control);
     border-radius: 999px;
     padding: 0.4rem 0.85rem;
     min-height: 2.5rem;
@@ -219,22 +225,6 @@
     display: grid;
     gap: 1.25rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
-  }
-  [data-mode='player'] .stage {
-    grid-template-columns: 1fr;
-  }
-  [data-mode='player'] .frame {
-    grid-area: 1 / 1;
-    visibility: hidden;
-    opacity: 0;
-    transition:
-      opacity 0.5s ease,
-      visibility 0s linear 0.5s;
-  }
-  [data-mode='player'] .frame[data-active='true'] {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.5s ease;
   }
   .frame {
     margin: 0;
@@ -350,10 +340,22 @@
     background: var(--mark-ink);
     color: var(--mark);
   }
-  @media (prefers-reduced-motion: reduce) {
-    [data-mode='player'] .frame,
-    [data-mode='player'] .frame[data-active='true'] {
-      transition: none;
-    }
+  @media (prefers-reduced-motion: no-preference) {
+  .stage {
+    grid-template-columns: 1fr;
+  }
+  .frame {
+    grid-area: 1 / 1;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.5s ease,
+      visibility 0s linear 0.5s;
+  }
+  .frame[data-active='true'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
   }
 </style>
