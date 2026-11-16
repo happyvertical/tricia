@@ -7,6 +7,18 @@ import { chromium } from 'playwright-core';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const appUrl = (process.env.APP_URL ?? 'http://127.0.0.1:4796').replace(/\/$/, '');
+// The script writes seed data into the app, so it only talks to a local app unless told otherwise.
+const { hostname } = new URL(appUrl);
+if (
+  !['localhost', '127.0.0.1', '[::1]'].includes(hostname) &&
+  process.env.ALLOW_REMOTE_APP !== '1'
+) {
+  console.error(
+    `Refusing to seed ${hostname}: APP_URL must be localhost or 127.0.0.1. ` +
+      'Set ALLOW_REMOTE_APP=1 only for a throwaway app that you own.',
+  );
+  process.exit(1);
+}
 const outDir = process.env.OUT_DIR ?? join(here, '../../docs/screenshots');
 const only = process.env.ONLY?.split(',');
 

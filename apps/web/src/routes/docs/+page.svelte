@@ -82,8 +82,9 @@
   </p>
   <p>
     The <strong>History</strong> page lists every change to your app, newest first. You can undo
-    the latest change from there with <strong>Undo this change</strong>. When a field is removed its stored values are archived, and undo
-    restores them until old archives are cleaned up.
+    the latest change from there. The button reads <strong>Undo this change</strong>, or
+    <strong>Undo this publish</strong> after you publish a draft. When a field is removed its
+    stored values are archived, and undo restores them until old archives are cleaned up.
   </p>
 
   <h2 id="calculated">Calculated fields</h2>

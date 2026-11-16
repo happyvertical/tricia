@@ -24,5 +24,8 @@ The script does not connect an AI account. The assistant shows as off in every s
    than `docs/screenshots`, `ONLY=01-home,04-report` to capture some of them, or `SETUP_URL` to
    pass the one-time link directly.
 
+The script refuses an `APP_URL` that is not localhost or 127.0.0.1, because it writes seed data into
+the app. Set `ALLOW_REMOTE_APP=1` only for a throwaway app that you own.
+
 The setup link works once, so each run needs a freshly set up app with an empty data folder. Do not
 commit or share the link. Look at every image before committing it.
