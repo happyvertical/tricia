@@ -1,0 +1,14 @@
+{
+  "name": "@tricia/screenshots",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Regenerates the README screenshots from a running smrt app shell.",
+  "scripts": {
+    "capture": "node capture.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1"
+  }
+}
