@@ -1,0 +1,313 @@
+{
+  "data": {
+    "format": 1,
+    "definition": {
+      "format": 1,
+      "name": "Birch Lane Bakery",
+      "recipes": [],
+      "models": {
+        "Customer": {
+          "label": "Customers",
+          "titleField": "name",
+          "fields": {
+            "name": {
+              "type": "text",
+              "label": "Customer name"
+            },
+            "email": {
+              "type": "text",
+              "label": "Email"
+            },
+            "joinedOn": {
+              "type": "date",
+              "label": "Customer since"
+            }
+          }
+        },
+        "Order": {
+          "label": "Orders",
+          "fields": {
+            "title": {
+              "type": "text",
+              "label": "Order"
+            },
+            "quantity": {
+              "type": "integer",
+              "label": "Quantity"
+            },
+            "price": {
+              "type": "money",
+              "label": "Unit price"
+            },
+            "total": {
+              "type": "money",
+              "label": "Total",
+              "calculated": {
+                "op": "mul",
+                "left": {
+                  "col": "quantity"
+                },
+                "right": {
+                  "col": "price"
+                }
+              }
+            },
+            "customer": {
+              "type": "reference",
+              "ref": "Customer",
+              "label": "Customer"
+            },
+            "issuedAt": {
+              "type": "date",
+              "label": "Order date"
+            },
+            "status": {
+              "type": "choice",
+              "label": "Status",
+              "choices": ["paid", "open", "void"]
+            }
+          }
+        }
+      },
+      "reports": {
+        "salesByCustomer": {
+          "label": "Sales by customer",
+          "description": "Order totals for each customer.",
+          "spec": {
+            "version": 1,
+            "title": "Sales by customer",
+            "source": "Order",
+            "dimensions": [
+              {
+                "field": "customer",
+                "as": "customer"
+              }
+            ],
+            "measures": [
+              {
+                "fn": "sum",
+                "field": "total",
+                "as": "total"
+              }
+            ],
+            "chart": {
+              "type": "bar"
+            }
+          }
+        },
+        "salesByMonth": {
+          "label": "Sales by month",
+          "description": "Order totals for each month.",
+          "spec": {
+            "version": 1,
+            "title": "Sales by month",
+            "source": "Order",
+            "dimensions": [
+              {
+                "field": "issuedAt",
+                "as": "month",
+                "bucket": "month"
+              }
+            ],
+            "measures": [
+              {
+                "fn": "sum",
+                "field": "total",
+                "as": "total"
+              }
+            ],
+            "chart": {
+              "type": "line"
+            }
+          }
+        }
+      }
+    },
+    "records": {
+      "Customer": [
+        {
+          "id": "00000000-0000-4000-8000-000000000001",
+          "name": "Maple Street Cafe",
+          "email": "maplestreetcaf@example.com",
+          "joinedOn": "2026-01-01T00:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000002",
+          "name": "Harbour Books",
+          "email": "harbourbooks@example.com",
+          "joinedOn": "2026-02-02T00:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000003",
+          "name": "Juniper Catering",
+          "email": "junipercaterin@example.com",
+          "joinedOn": "2026-03-03T00:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000004",
+          "name": "Northside School",
+          "email": "northsideschoo@example.com",
+          "joinedOn": "2026-04-04T00:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000005",
+          "name": "Fernhill Market",
+          "email": "fernhillmarket@example.com",
+          "joinedOn": "2026-05-05T00:00:00.000Z"
+        },
+        {
+          "id": "00000000-0000-4000-8000-000000000006",
+          "name": "Willow Yoga Studio",
+          "email": "willowyogastud@example.com",
+          "joinedOn": "2026-06-06T00:00:00.000Z"
+        }
+      ],
+      "Order": [
+        {
+          "title": "Sourdough loaves",
+          "customer": "00000000-0000-4000-8000-000000000001",
+          "issuedAt": "2026-01-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 12,
+          "price": 450
+        },
+        {
+          "title": "Morning pastries",
+          "customer": "00000000-0000-4000-8000-000000000002",
+          "issuedAt": "2026-01-15T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 24,
+          "price": 275
+        },
+        {
+          "title": "Lunch platter",
+          "customer": "00000000-0000-4000-8000-000000000002",
+          "issuedAt": "2026-02-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 8,
+          "price": 1850
+        },
+        {
+          "title": "Rye loaves",
+          "customer": "00000000-0000-4000-8000-000000000003",
+          "issuedAt": "2026-02-15T00:00:00.000Z",
+          "status": "open",
+          "quantity": 10,
+          "price": 520
+        },
+        {
+          "title": "Wedding cake",
+          "customer": "00000000-0000-4000-8000-000000000003",
+          "issuedAt": "2026-03-06T00:00:00.000Z",
+          "status": "open",
+          "quantity": 1,
+          "price": 16500
+        },
+        {
+          "title": "Cookie boxes",
+          "customer": "00000000-0000-4000-8000-000000000004",
+          "issuedAt": "2026-03-15T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 15,
+          "price": 900
+        },
+        {
+          "title": "Morning pastries",
+          "customer": "00000000-0000-4000-8000-000000000004",
+          "issuedAt": "2026-04-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 24,
+          "price": 275
+        },
+        {
+          "title": "Birthday cake",
+          "customer": "00000000-0000-4000-8000-000000000005",
+          "issuedAt": "2026-04-15T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 1,
+          "price": 4800
+        },
+        {
+          "title": "Rye loaves",
+          "customer": "00000000-0000-4000-8000-000000000005",
+          "issuedAt": "2026-05-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 10,
+          "price": 520
+        },
+        {
+          "title": "Cinnamon rolls",
+          "customer": "00000000-0000-4000-8000-000000000006",
+          "issuedAt": "2026-05-15T00:00:00.000Z",
+          "status": "open",
+          "quantity": 30,
+          "price": 310
+        },
+        {
+          "title": "Cookie boxes",
+          "customer": "00000000-0000-4000-8000-000000000006",
+          "issuedAt": "2026-06-06T00:00:00.000Z",
+          "status": "open",
+          "quantity": 15,
+          "price": 900
+        },
+        {
+          "title": "Sourdough loaves",
+          "customer": "00000000-0000-4000-8000-000000000001",
+          "issuedAt": "2026-06-15T00:00:00.000Z",
+          "status": "void",
+          "quantity": 12,
+          "price": 450
+        },
+        {
+          "title": "Birthday cake",
+          "customer": "00000000-0000-4000-8000-000000000001",
+          "issuedAt": "2026-07-06T00:00:00.000Z",
+          "status": "void",
+          "quantity": 1,
+          "price": 4800
+        },
+        {
+          "title": "Lunch platter",
+          "customer": "00000000-0000-4000-8000-000000000002",
+          "issuedAt": "2026-07-15T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 8,
+          "price": 1850
+        },
+        {
+          "title": "Cinnamon rolls",
+          "customer": "00000000-0000-4000-8000-000000000002",
+          "issuedAt": "2026-08-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 30,
+          "price": 310
+        },
+        {
+          "title": "Wedding cake",
+          "customer": "00000000-0000-4000-8000-000000000003",
+          "issuedAt": "2026-08-15T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 1,
+          "price": 16500
+        },
+        {
+          "title": "Sourdough loaves",
+          "customer": "00000000-0000-4000-8000-000000000003",
+          "issuedAt": "2026-09-06T00:00:00.000Z",
+          "status": "paid",
+          "quantity": 12,
+          "price": 450
+        },
+        {
+          "title": "Morning pastries",
+          "customer": "00000000-0000-4000-8000-000000000004",
+          "issuedAt": "2026-09-15T00:00:00.000Z",
+          "status": "open",
+          "quantity": 24,
+          "price": 275
+        }
+      ]
+    }
+  }
+}

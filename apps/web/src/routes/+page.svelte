@@ -14,15 +14,6 @@
   />
 </svelte:head>
 
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="top">
-  <div class="wrap bar">
-    <span class="mark">Tricia</span>
-    <a href={repo}>Source on GitHub</a>
-  </div>
-</header>
-
 <main id="main">
   <section class="hero">
     <div class="wrap">
@@ -34,6 +25,10 @@
       <p class="status">
         <strong>Not released yet.</strong> There is nothing to download today. Spreadsheet import is
         still being built.
+      </p>
+      <p class="cta">
+        <a class="button" href="/download/">Download</a>
+        <a class="button" href="/docs/">Documentation</a>
       </p>
     </div>
   </section>
@@ -117,14 +112,14 @@
             <li>Building and changing lists and fields by conversation</li>
             <li>Approval for risky changes</li>
             <li>Versioned changes, and undo</li>
+            <li>Calculated fields</li>
+            <li>Reports, as a chart or a table, with a CSV download</li>
           </ul>
         </div>
         <div>
           <h3>Being built for Tricia</h3>
           <ul>
             <li>Spreadsheet import. It is required before Tricia ships.</li>
-            <li>Calculated fields</li>
-            <li>Reports</li>
             <li>Loading data in bulk</li>
           </ul>
         </div>
@@ -157,47 +152,7 @@
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p>
-      Tricia by HappyVertical. This page has no trackers, analytics or sign-up form.
-    </p>
-  </div>
-</footer>
-
 <style>
-  .wrap {
-    width: min(100% - 2rem, 62rem);
-    margin-inline: auto;
-  }
-  .skip {
-    position: absolute;
-    left: 1rem;
-    top: -4rem;
-    background: var(--ink);
-    color: var(--bg);
-    padding: 0.5rem 0.9rem;
-    z-index: 10;
-  }
-  .skip:focus {
-    top: 0.5rem;
-  }
-  .top {
-    padding-block: 1rem;
-  }
-  .bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-  }
-  .mark {
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-  }
-
   .hero {
     padding-block: clamp(2rem, 7vw, 5rem) clamp(2.5rem, 6vw, 4rem);
     background-image:
@@ -230,6 +185,12 @@
     border-left: 4px solid var(--mark-edge);
   }
 
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.25rem 0 0;
+  }
   h2 {
     font-family: var(--serif);
     font-size: clamp(1.5rem, 4vw, 2rem);
@@ -287,13 +248,5 @@
   .cols ul {
     margin: 0;
     padding-left: 1.2rem;
-  }
-  .foot {
-    padding-block: 2rem;
-    color: var(--muted);
-    font-size: 0.92rem;
-  }
-  .foot p {
-    margin: 0;
   }
 </style>

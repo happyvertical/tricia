@@ -17,6 +17,8 @@ pnpm --filter @tricia/web preview # serve the built output locally
 
 ## Output
 
+The site has three pages: the home page (`/`), `/download/` and `/docs/`.
+
 `pnpm build` writes plain files to `apps/web/build`: `index.html`, the
 `_app/` assets and `favicon.svg`. Any static file host can serve that folder.
 Pages are pre-rendered with trailing slashes.
