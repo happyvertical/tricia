@@ -1,7 +1,7 @@
 {
   "version": 1,
   "productId": "tricia",
-  "bundleId": "com.happyvertical.tricia",
+  "bundleId": "invalid.example.tricia-placeholder",
   "displayName": "Tricia",
   "bridge": { "envPrefix": "TRICIA", "mcpPath": "/mcp" },
   "sidecar": {

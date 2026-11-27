@@ -40,4 +40,10 @@ Nothing has been released. A release is a manual run of the Desktop workflow fro
   `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`;
 - `updaterPublicKey` in `smrt-desktop.json`, the public half of that updater key.
 
+**Placeholders to settle before any release.** The product identity is not decided: `bundleId` is
+`invalid.example.tricia-placeholder`, and `productId` and `displayName` are provisional.
+`updaterPublicKey` is left out, because the file's format has no way to mark a key as a placeholder.
+The release preflight refuses the placeholder bundle identifier. Choose it carefully: it cannot be
+changed cleanly once people have installed the app.
+
 The icons are generated from the homepage's favicon with `tauri icon` and can be replaced.
