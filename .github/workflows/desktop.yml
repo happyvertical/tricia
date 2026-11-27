@@ -1,0 +1,40 @@
+name: Desktop
+
+# Pull requests build unsigned installers and run the launch smoke test. A signed
+# release happens only on a manual run from main with "release" ticked. Create
+# and protect the `desktop-release` environment before the first one: a run
+# against a missing environment creates it unprotected, and the guard refuses.
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      release:
+        description: Sign, notarize and publish a release (main only)
+        type: boolean
+        default: false
+
+# GitHub checks the called workflow's permissions against the caller even for
+# runs that never release. Each called job narrows its own token.
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: desktop-${{ github.ref }}
+  # Never cancel a release mid-publish.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  desktop:
+    # Pinned to the commit tagged v0.73.0, matching apps/desktop's lockfile.
+    uses: happyvertical/smrt/.github/workflows/desktop-consumer-build.yml@d0db154ac0540afef05bfab1e523861020bada12
+    with:
+      app_dir: apps/desktop
+      targets: aarch64-apple-darwin,x86_64-unknown-linux-gnu
+      bridge_path: apps/desktop/node_modules/@happyvertical/smrt-app-cli/dist/bin/smrt-mcp-bridge.mjs
+      smrt_desktop_version: 0.73.0
+      release: ${{ github.event_name == 'workflow_dispatch' && inputs.release }}
+    # The signing secrets live in this repository's `desktop-release` environment.
+    secrets: inherit

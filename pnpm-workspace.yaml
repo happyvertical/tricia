@@ -1,3 +1,5 @@
 packages:
   - apps/*
+  # apps/desktop is a standalone project with its own lockfile.
+  - "!apps/desktop"
   - tools/*
